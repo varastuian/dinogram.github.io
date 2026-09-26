@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>دینوگرام</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#12101c; --bg2:#191629; --ink:#f2ede4; --muted:#a89fc0;
+  --gold:#d4af6a; --line:#2b2640; --card:#1d1930;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#faf7f1; --bg2:#f1ece1; --ink:#1d1930; --muted:#665f80;
+    --gold:#a8763f; --line:#e2dbca; --card:#ffffff;
+  }
+}
+:root[data-theme="dark"]{ --bg:#12101c; --bg2:#191629; --ink:#f2ede4; --muted:#a89fc0; --gold:#d4af6a; --line:#2b2640; --card:#1d1930; }
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*{box-sizing:border-box;}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:'Vazirmatn',Tahoma,sans-serif;line-height:1.7;}
+a{color:inherit;}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px;}
+header{position:sticky;top:0;z-index:10;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px);}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;}
+.logo{font-weight:800;font-size:20px;letter-spacing:.5px;}
+.logo b{color:var(--gold);}
+.navlinks{display:flex;gap:22px;font-size:14px;color:var(--muted);}
+.navlinks a:hover{color:var(--gold);}
+.hero{padding:64px 0 40px;text-align:center;}
+.hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;margin:0 0 14px;}
+.hero p{color:var(--muted);max-width:520px;margin:0 auto 26px;font-size:16px;}
+.btn{display:inline-block;background:var(--gold);color:#161225;font-weight:700;padding:13px 28px;border-radius:10px;text-decoration:none;border:none;cursor:pointer;font-family:inherit;font-size:15px;}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;padding:20px 0 60px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;cursor:pointer;transition:border-color .15s;}
+.card:hover{border-color:var(--gold);}
+.card .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-left:8px;}
+.card h3{margin:12px 0 6px;font-size:17px;}
+.card p{margin:0;color:var(--muted);font-size:13px;}
+section.about{padding:50px 0;border-top:1px solid var(--line);}
+section.about h2{font-size:22px;margin-bottom:12px;}
+section.about p{color:var(--muted);max-width:640px;font-size:15px;}
+footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--muted);font-size:13px;padding-bottom:calc(30px + env(safe-area-inset-bottom,0px));}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:20px;}
+.overlay.open{display:flex;}
+.modal{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;max-width:420px;width:100%;max-height:85vh;overflow:auto;}
+.modal h3{margin:0 0 4px;}
+.modal .sub{color:var(--muted);font-size:13px;margin-bottom:16px;}
+.plan{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px;cursor:pointer;}
+.plan.sel{border-color:var(--gold);background:color-mix(in srgb, var(--gold) 10%, transparent);}
+.plan span.p{color:var(--gold);font-weight:700;}
+input,textarea{width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:14px;margin-bottom:10px;}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px;}
+.row{display:flex;gap:8px;}
+.close{float:left;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;}
+#adminView{display:none;padding:40px 0 80px;}
+.adm-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;}
+.adm-title{font-size:15px;font-weight:700;margin-bottom:10px;}
+.small{font-size:12px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div id="storeView">
+<header><div class="wrap nav">
+  <div class="logo"><b>دینو</b>گرام</div>
+  <div class="navlinks"><a href="#services">سرویس‌ها</a><a href="#about">درباره ما</a><a href="#contact">تماس</a></div>
+</div></header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>اکانت پرمیوم، تحویل سریع، پرداخت ریالی</h1>
+    <p>اسپاتیفای، تلگرام، جمینای، چت‌جی‌پی‌تی، دولینگو، کپ‌کات و کانوا؛ همه با پشتیبانی فارسی و تحویل در همان روز.</p>
+    <a href="#services" class="btn">مشاهده سرویس‌ها</a>
+  </div>
+
+  <div id="services" class="grid"></div>
+
+  <section id="about" class="about">
+    <h2>درباره ما</h2>
+    <p id="aboutText"></p>
+  </section>
+</div>
+
+<footer id="contact" class="wrap">
+  برای سوالات، سفارش سازمانی یا مشکل در تحویل، در تلگرام پیام بدهید.<br>
+  © <span id="year"></span> دینوگرام
+</footer>
+</div>
+
+<div id="adminView" class="wrap">
+  <h2>پنل مدیریت</h2>
+  <div id="adminLogin" class="adm-card">
+    <label>رمز عبور</label>
+    <input type="password" id="passInput">
+    <button class="btn" onclick="tryLogin()">ورود</button>
+    <p class="small">این صفحه با رمز محافظت شده اما آدرس آن مخفی است؛ لینک را جایی منتشر نکنید. این یک قفل ساده سمت مرورگر است، نه امنیت واقعی.</p>
+  </div>
+  <div id="adminPanel" style="display:none"></div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="close" onclick="closeModal()">×</button>
+    <h3 id="mTitle"></h3>
+    <div class="sub" id="mSub"></div>
+    <div id="mPlans"></div>
+    <div id="mForm" style="display:none">
+      <label>نام شما</label><input id="fName">
+      <label>آیدی تلگرام یا شماره تماس</label><input id="fContact">
+      <button class="btn" style="width:100%" onclick="sendOrder()">ثبت سفارش در تلگرام</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let STATE = {
+  brand:"دینوگرام",
+  telegram:"dinogram_admin",
+  adminPass:"dino@2026",
+  about:"دینوگرام از سال گذشته اکانت‌های پرمیوم سرویس‌های محبوب جهانی را برای کاربران ایرانی، بدون نیاز به کارت بانکی بین‌المللی و با پرداخت ریالی فراهم می‌کند. سفارش‌ها معمولاً در کمتر از چند ساعت تحویل داده می‌شوند و پشتیبانی فارسی همیشه پاسخگوی سوالات شماست.",
+  services:[
+    {id:"spotify",name:"اسپاتیفای پرمیوم",icon:"🎵",color:"#1DB954",plans:[{title:"۱ ماهه",price:"۱۹۰,۰۰۰ تومان"},{title:"۳ ماهه",price:"۴۹۰,۰۰۰ تومان"},{title:"۱۲ ماهه",price:"۱,۶۹۰,۰۰۰ تومان"}]},
+    {id:"telegram",name:"تلگرام پرمیوم",icon:"✈️",color:"#2AABEE",plans:[{title:"۱ ماهه",price:"۲۲۰,۰۰۰ تومان"},{title:"۳ ماهه",price:"۵۹۰,۰۰۰ تومان"},{title:"۱۲ ماهه",price:"۱,۹۹۰,۰۰۰ تومان"}]},
+    {id:"gemini",name:"جمینای پرو (Gemini)",icon:"✨",color:"#8ab4f8",plans:[{title:"۱ ماهه",price:"۲۹۰,۰۰۰ تومان"},{title:"۱۲ ماهه",price:"۲,۹۹۰,۰۰۰ تومان"}]},
+    {id:"chatgpt",name:"چت‌جی‌پی‌تی پلاس",icon:"🤖",color:"#74AA9C",plans:[{title:"۱ ماهه",price:"۳۹۰,۰۰۰ تومان"},{title:"۳ ماهه",price:"۱,۰۹۰,۰۰۰ تومان"}]},
+    {id:"duolingo",name:"دولینگو پلاس",icon:"🦉",color:"#58CC02",plans:[{title:"۱ ماهه",price:"۱۵۰,۰۰۰ تومان"},{title:"۱۲ ماهه",price:"۹۹۰,۰۰۰ تومان"}]},
+    {id:"capcut",name:"کپ‌کات پرو",icon:"🎬",color:"#00C2CB",plans:[{title:"۱ ماهه",price:"۱۷۰,۰۰۰ تومان"},{title:"۱۲ ماهه",price:"۱,۱۹۰,۰۰۰ تومان"}]},
+    {id:"canva",name:"کانوا پرو",icon:"🎨",color:"#00C4CC",plans:[{title:"۱ ماهه",price:"۱۶۰,۰۰۰ تومان"},{title:"۱۲ ماهه",price:"۱,۰۹۰,۰۰۰ تومان"}]}
+  ]
+};
+let sel = null; // {service, plan}
+const isAdmin = location.hash.startsWith("#/adminpanel");
+
+function renderStore(){
+  document.getElementById("aboutText").textContent = STATE.about;
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const g = document.getElementById("services");
+  g.innerHTML = "";
+  STATE.services.forEach(s=>{
+    const el = document.createElement("div");
+    el.className = "card";
+    el.onclick = ()=>openModal(s.id);
+    el.innerHTML = `<span class="dot" style="background:${s.color}"></span>${s.icon}<h3>${s.name}</h3><p>از ${s.plans[0].price}</p>`;
+    g.appendChild(el);
+  });
+}
+
+function openModal(id){
+  const s = STATE.services.find(x=>x.id===id);
+  sel = {service:s, plan:null};
+  document.getElementById("mTitle").textContent = s.name;
+  document.getElementById("mSub").textContent = "یک پلن را انتخاب کنید";
+  document.getElementById("mForm").style.display = "none";
+  const box = document.getElementById("mPlans");
+  box.innerHTML = "";
+  s.plans.forEach((p,i)=>{
+    const el = document.createElement("div");
+    el.className = "plan";
+    el.innerHTML = `<span>${p.title}</span><span class="p">${p.price}</span>`;
+    el.onclick = ()=>{
+      [...box.children].forEach(c=>c.classList.remove("sel"));
+      el.classList.add("sel");
+      sel.plan = p;
+      document.getElementById("mForm").style.display = "block";
+    };
+    box.appendChild(el);
+  });
+  document.getElementById("overlay").classList.add("open");
+}
+function closeModal(){ document.getElementById("overlay").classList.remove("open"); }
+
+function sendOrder(){
+  if(!sel || !sel.plan) return;
+  const name = document.getElementById("fName").value.trim();
+  const contact = document.getElementById("fContact").value.trim();
+  if(!name || !contact){ alert("لطفا نام و راه تماس را وارد کنید."); return; }
+  const text = `سفارش جدید از دینوگرام\nسرویس: ${sel.service.name}\nپلن: ${sel.plan.title} - ${sel.plan.price}\nنام: ${name}\nتماس: ${contact}`;
+  window.open(`https://t.me/${STATE.telegram}?text=${encodeURIComponent(text)}`, "_blank");
+  closeModal();
+}
+
+// ---- Admin ----
+function tryLogin(){
+  if(document.getElementById("passInput").value === STATE.adminPass){
+    document.getElementById("adminLogin").style.display = "none";
+    document.getElementById("adminPanel").style.display = "block";
+    renderAdmin();
+  } else {
+    alert("رمز اشتباه است.");
+  }
+}
+function renderAdmin(){
+  const p = document.getElementById("adminPanel");
+  let html = `<div class="adm-card"><div class="adm-title">تنظیمات عمومی</div>
+    <label>آیدی تلگرام پشتیبانی</label><input id="a_tg" value="${STATE.telegram}">
+    <label>متن درباره ما</label><textarea id="a_about" rows="3">${STATE.about}</textarea>
+    <label>رمز پنل مدیریت</label><input id="a_pass" value="${STATE.adminPass}">
+  </div>`;
+  STATE.services.forEach((s,si)=>{
+    html += `<div class="adm-card"><div class="adm-title">${s.icon} ${s.name}</div>`;
+    s.plans.forEach((pl,pi)=>{
+      html += `<div class="row">
+        <input data-s="${si}" data-p="${pi}" data-f="title" value="${pl.title}" style="flex:1">
+        <input data-s="${si}" data-p="${pi}" data-f="price" value="${pl.price}" style="flex:1">
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  html += `<button class="btn" onclick="saveAdmin()">ذخیره تغییرات</button> <span class="small" id="saveMsg"></span>`;
+  p.innerHTML = html;
+}
+async function saveAdmin(){
+  STATE.telegram = document.getElementById("a_tg").value.trim();
+  STATE.about = document.getElementById("a_about").value.trim();
+  STATE.adminPass = document.getElementById("a_pass").value.trim();
+  document.querySelectorAll("[data-s]").forEach(inp=>{
+    STATE.services[+inp.dataset.s].plans[+inp.dataset.p][inp.dataset.f] = inp.value;
+  });
+  const msg = document.getElementById("saveMsg");
+  try{
+    const artifact = window.claude ? await window.claude.use("artifact") : null;
+    if(artifact){
+      const html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML.replace(
+        /let STATE = [\s\S]*?;\n/, "let STATE = " + JSON.stringify(STATE) + ";\n"
+      );
+      await artifact.publish(html);
+      msg.textContent = "ذخیره شد و برای همه بازدیدکنندگان به‌روز شد.";
+    } else {
+      msg.textContent = "تغییرات فقط در همین نمایش اعمال شد (ذخیره دائمی در دسترس نیست).";
+    }
+  }catch(e){
+    msg.textContent = "ذخیره دائمی ممکن نشد؛ تغییرات فقط موقتی است.";
+  }
+  renderStore();
+}
+
+renderStore();
+if(isAdmin){
+  document.getElementById("storeView").style.display = "none";
+  document.getElementById("adminView").style.display = "block";
+}
+</script>
+</body>
+</html>
